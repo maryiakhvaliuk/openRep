@@ -1,0 +1,52 @@
+<template>
+    <div class="container">
+      <div class="header">
+        <h1>Account List</h1>
+        <div class="button-group">
+          <lightning-button label="Refresh" onclick={refreshAccounts} variant="brand"></lightning-button>
+          <lightning-button label="New Account" onclick={createNewAccount} variant="brand"></lightning-button>
+          <lightning-button label="Delete All" onclick={deleteAllAccounts} variant="destructive"></lightning-button>
+        </div>
+      </div>
+      <template if:true={accounts}>
+        <template for:each={accounts} for:item="account">
+          <div key={account.Id} class="account-card">
+            <div class="account-details">
+              <div class="account-info">
+                <div class="account-name">{account.Name}</div>
+                <div class="account-industry">{account.Industry}</div>
+              </div>
+              <div class="account-contact">
+                <div class="account-phone">
+                  <span class="label">Phone:</span>
+                  <span>{account.Phone}</span>
+                </div>
+                <div class="account-website">
+                  <span class="label">Website:</span>
+                  <a href={account.Website} target="_blank">{account.Website}</a>
+                </div>
+              </div>
+            </div>
+            <div class="button-group">
+              <lightning-button
+                label="Edit"
+                onclick={editAccount}
+                variant="neutral"
+                value={account.Id}
+              ></lightning-button>
+              <lightning-button
+                label="Delete"
+                onclick={deleteAccount}
+                variant="destructive"
+                value={account.Id}
+              ></lightning-button>
+            </div>
+          </div>
+        </template>
+      </template>
+      <template if:false={accounts}>
+        <div class="no-accounts">No accounts found.</div>
+      </template>
+    </div>
+    </template>
+    
