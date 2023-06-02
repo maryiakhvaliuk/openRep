@@ -1,0 +1,15 @@
+public class User Service {
+  Http http = new Http();
+  HttpRequest request = new HttpRequest();
+  request.setEndpoint('https://reqres.in/api/users');
+  request.setMethod('GET');
+  HttpResponse response = http.send(request);
+  if (response.getStatusCode() == 200) {
+      Map<String, Object> jsonResponse = (Map<String, Object>) JSON.deserializeUntyped(response.getBody());
+      List<Object> users = (List<Object>) jsonResponse.get('data');
+      System.debug('Received the following users:');
+      for (Object user : users) {
+          System.debug(user);
+      }
+  }
+}
