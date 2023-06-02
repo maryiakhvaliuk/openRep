@@ -1,0 +1,18 @@
+public with sharing class AccountController {
+  @AuraEnabled(cacheable=true)
+  public static List<Account> getAccounts() {
+    return [SELECT Id, Name, Industry, Phone, Website FROM Account];
+  }
+
+  @AuraEnabled
+  public static void deleteAccountById(String accountId) {
+    Account account = new Account(Id = accountId);
+    delete account;
+  }
+
+  @AuraEnabled
+  public static void deleteAllAccounts() {
+    List<Account> accounts = [SELECT Id FROM Account];
+    delete accounts;
+  }
+}
